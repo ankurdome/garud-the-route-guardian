@@ -39,7 +39,10 @@
               <input type="checkbox" name="ch" id="ch" class="mr-2" />
               <span class="text-md">Remember for 30 days</span>
             </div>
-            <span class="font-bold text-md">Forgot password</span>
+            <button 
+              class="font-bold text-md"
+              id = "resetPasswordButton"
+            >Forgot password</button>
           </div>
           <button 
               id = "signInButton"
@@ -49,7 +52,7 @@
           <button 
               id = "googleSignInButton"
               class="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
-            <img src="google.svg" alt="img" class="w-6 h-6 inline mr-2" />
+            <img src="img/google.svg" alt="img" class="w-6 h-6 inline mr-2" />
             Sign in with Google
           </button>
           <div class="text-center text-gray-400">
@@ -60,7 +63,7 @@
         <!-- {/* right side */} -->
         <div class="relative">
           <img
-            src="maps.webp"
+            src="img/maps.webp"
             alt="img"
             class="w-[400px] h-full hidden rounded-r-2xl md:block object-cover "
           />
@@ -84,6 +87,7 @@
           signInWithEmailAndPassword,
           onAuthStateChanged,
           signOut,
+          sendPasswordResetEmail,
           GoogleAuthProvider,
           signInWithPopup,
       } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -109,6 +113,7 @@
       const signUpButton = document.querySelector("#signUpButton");
       const signInButton = document.querySelector("#signInButton");
       const signOutButton = document.querySelector("#signOutButton");
+      const resetPasswordButton = document.querySelector("#resetPasswordButton");
 
       const provider = new GoogleAuthProvider();
       const googleSignInButton = document.getElementById("googleSignInButton");
@@ -151,7 +156,6 @@
               console.log(errorCode + errorMessage);
           })            
       }
-
       const userGSignIn = async() => {
           signInWithPopup(auth, provider,)    
           .then((result) => {
@@ -168,9 +172,25 @@
       }
 
 
+      const resetUserPassword = () => {
+        const email = userEmail.value;
+        sendPasswordResetEmail(auth, email)
+        .then(() => {
+            alert("Password reset email sent. Please check your inbox.");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage);
+            console.error(errorCode, errorMessage);
+        });
+      }
+
+
       //signUpButton.addEventListener('click',userSignUp);
       signInButton.addEventListener('click',userSignIn);
       googleSignInButton.addEventListener('click',userGSignIn);
+      resetPasswordButton.addEventListener('click',resetUserPassword);
 
     </script>
   </body>
