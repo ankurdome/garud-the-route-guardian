@@ -39,10 +39,7 @@
               <input type="checkbox" name="ch" id="ch" class="mr-2" />
               <span class="text-md">Remember for 30 days</span>
             </div>
-            <button 
-              class="font-bold text-md"
-              id = "resetPasswordButton"
-            >Forgot password</button>
+            <span class="font-bold text-md">Forgot password</span>
           </div>
           <button 
               id = "signInButton"
@@ -87,13 +84,12 @@
           signInWithEmailAndPassword,
           onAuthStateChanged,
           signOut,
-          sendPasswordResetEmail,
           GoogleAuthProvider,
           signInWithPopup,
       } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
-    
+
       // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyCnxhYMzDhZ6UWgnpaP5BiGFmKFv64rE8U",
@@ -103,7 +99,7 @@
         messagingSenderId: "797012133409",
         appId: "1:797012133409:web:9ad580dd5f15402bdf8560"
       };
-    
+
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
@@ -113,12 +109,11 @@
       const signUpButton = document.querySelector("#signUpButton");
       const signInButton = document.querySelector("#signInButton");
       const signOutButton = document.querySelector("#signOutButton");
-      const resetPasswordButton = document.querySelector("#resetPasswordButton");
 
       const provider = new GoogleAuthProvider();
       const googleSignInButton = document.getElementById("googleSignInButton");
 
-      
+
       /*
       const userSignUp = async() => {
           const signUpEmail = userEmail.value;
@@ -156,6 +151,7 @@
               console.log(errorCode + errorMessage);
           })            
       }
+
       const userGSignIn = async() => {
           signInWithPopup(auth, provider,)    
           .then((result) => {
@@ -172,25 +168,9 @@
       }
 
 
-      const resetUserPassword = () => {
-        const email = userEmail.value;
-        sendPasswordResetEmail(auth, email)
-        .then(() => {
-            alert("Password reset email sent. Please check your inbox.");
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            alert(errorMessage);
-            console.error(errorCode, errorMessage);
-        });
-      }
-
-
       //signUpButton.addEventListener('click',userSignUp);
       signInButton.addEventListener('click',userSignIn);
       googleSignInButton.addEventListener('click',userGSignIn);
-      resetPasswordButton.addEventListener('click',resetUserPassword);
 
     </script>
   </body>
