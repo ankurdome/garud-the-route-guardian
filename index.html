@@ -39,7 +39,10 @@
               <input type="checkbox" name="ch" id="ch" class="mr-2" />
               <span class="text-md">Remember for 30 days</span>
             </div>
-            <span class="font-bold text-md">Forgot password</span>
+            <span 
+              class="font-bold text-md"
+              id = "resetPasswordButton"
+            >Forgot password</span>
           </div>
           <button 
               id = "signInButton"
@@ -83,6 +86,7 @@
           createUserWithEmailAndPassword,
           signInWithEmailAndPassword,
           onAuthStateChanged,
+          sendPasswordResetEmail,
           signOut,
           GoogleAuthProvider,
           signInWithPopup,
@@ -109,6 +113,7 @@
       const signUpButton = document.querySelector("#signUpButton");
       const signInButton = document.querySelector("#signInButton");
       const signOutButton = document.querySelector("#signOutButton");
+      const resetPasswordButton = document.querySelector("#resetPasswordButton");
 
       const provider = new GoogleAuthProvider();
       const googleSignInButton = document.getElementById("googleSignInButton");
@@ -167,11 +172,24 @@
           })       
       }
 
+      const resetUserPassword = () => {
+        const email = userEmail.value;
+        sendPasswordResetEmail(auth, email)
+        .then(() => {
+            alert("Password reset email sent. Please check your inbox.");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage);
+            console.error(errorCode, errorMessage);
+        });
+      }
 
       //signUpButton.addEventListener('click',userSignUp);
       signInButton.addEventListener('click',userSignIn);
       googleSignInButton.addEventListener('click',userGSignIn);
-
+      resetPasswordButton.addEventListener('click',resetUserPassword);
     </script>
   </body>
 </html>
